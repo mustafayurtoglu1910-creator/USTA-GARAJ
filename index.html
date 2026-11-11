@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101820">
+<title>USTA GARAJ</title>
+<style>
+:root{color-scheme:dark;--bg:#101820;--panel:#1b2833;--panel2:#243542;--text:#f4f7fa;--muted:#a9bac7;--accent:#ffb000;--good:#42c58a;--bad:#ff6b6b}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(160deg,#101820,#172632);color:var(--text);font:15px system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{padding:18px 16px 12px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #ffffff18}
+.brand{font-weight:900;letter-spacing:1.5px;font-size:20px}.brand span{color:var(--accent)}.sub{font-size:12px;color:var(--muted);margin-top:2px}
+.stats{display:flex;gap:8px}.pill{background:var(--panel2);border:1px solid #ffffff18;padding:8px 10px;border-radius:12px;font-weight:700;font-size:13px}
+main{max-width:980px;margin:auto;padding:14px;display:grid;gap:14px}.card{background:var(--panel);border:1px solid #ffffff18;border-radius:18px;padding:14px;box-shadow:0 12px 30px #0003}
+h2{font-size:16px;margin:0 0 10px}p{color:var(--muted);line-height:1.45;margin:6px 0}
+.car-head{display:flex;justify-content:space-between;align-items:start;gap:10px}.tag{color:var(--accent);font-size:11px;font-weight:800;letter-spacing:1px}
+.car-wrap{background:radial-gradient(ellipse at center,#344958,#17232d 70%);border-radius:14px;padding:8px;margin-top:12px}
+svg{width:100%;height:auto;display:block;max-height:340px}
+.part{cursor:pointer;outline:none}.part rect,.part path,.part circle{transition:.15s}.part:hover rect,.part:focus rect{stroke:var(--accent);stroke-width:3}.part.selected rect{fill:#72531d;stroke:var(--accent);stroke-width:3}
+.part text{font-size:10px;fill:#fff;pointer-events:none;font-weight:700}.part .small{font-size:8px;fill:#d7e2e9}
+.legend{display:flex;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:12px;margin-top:8px}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;background:var(--accent)}
+.layout{display:grid;grid-template-columns:1fr;gap:14px}.parts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.part-btn{background:var(--panel2);color:var(--text);border:1px solid #ffffff1c;border-radius:12px;padding:11px;text-align:left;font-weight:700;min-height:48px}
+.part-btn small{display:block;color:var(--muted);font-weight:400;margin-top:3px}
+.part-btn.active{border-color:var(--accent);background:#4a391b}
+.detail{background:#14212a;border-radius:14px;padding:13px;min-height:150px}
+.detail h3{margin:0 0 7px;font-size:17px}.detail .status{font-size:12px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.6px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+button{font:inherit;cursor:pointer}.action{border:0;border-radius:11px;padding:11px 14px;font-weight:800;background:var(--accent);color:#1b1b1b}.action.secondary{background:#344957;color:#fff;border:1px solid #ffffff22}.action:disabled{opacity:.45;cursor:not-allowed}
+.task{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #ffffff12}.task:last-child{border:0}.task .check{width:24px;height:24px;border-radius:8px;border:1px solid #ffffff44;display:grid;place-items:center;color:#101820}.task.done .check{background:var(--good);border-color:var(--good)}.task b{font-size:14px}.task small{display:block;color:var(--muted);margin-top:2px}
+.notice{font-size:12px;color:var(--muted);border-left:3px solid var(--accent);padding-left:10px;margin-top:10px}
+footer{text-align:center;color:#8295a3;font-size:11px;padding:4px 14px 24px}
+@media(min-width:720px){main{grid-template-columns:1.15fr .85fr}.wide{grid-column:1/-1}.layout{grid-template-columns:1.1fr .9fr}.parts{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<header><div><div class="brand">USTA <span>GARAJ</span></div><div class="sub">Araç bakım ve arıza tespit prototipi</div></div><div class="stats"><div class="pill">⭐ <span id="xp">0</span> XP</div><div class="pill">Seviye <span id="level">1</span></div></div></header>
+<main>
+<section class="card wide">
+ <div class="car-head"><div><div class="tag">GARAJ 01 · İLK ARAÇ</div><h2 style="margin:4px 0">Fiat Egea 1.4 Benzinli · Sedan</h2><p>Bir parçaya dokun, kontrol et ve görevleri tamamla.</p></div><div class="pill">2022</div></div>
+ <div class="layout">
+  <div>
+   <div class="car-wrap">
+    <svg viewBox="0 0 520 300" role="img" aria-label="Araç üstten görünüm şeması, parçaları seçebilirsiniz">
+     <defs><linearGradient id="body" x1="0" x2="1"><stop stop-color="#9daab2"/><stop offset=".5" stop-color="#e1e7ea"/><stop offset="1" stop-color="#7d8d97"/></linearGradient></defs>
+     <path d="M184 18 Q260 0 336 18 L378 58 Q405 87 405 135 L405 226 Q401 266 360 278 L160 278 Q119 266 115 226 L115 135 Q115 87 142 58Z" fill="url(#body)" stroke="#263640" stroke-width="5"/>
+     <path d="M184 34 Q260 20 336 34 L365 72 L155 72Z" fill="#263e4b" stroke="#6d7e87" stroke-width="3"/>
+     <path d="M155 82 L365 82 L379 128 L379 184 L141 184 L141 128Z" fill="#304b5a" stroke="#6d7e87" stroke-width="3"/>
+     <path d="M145 193 L375 193 L360 248 Q260 270 160 248Z" fill="#263e4b" stroke="#6d7e87" stroke-width="3"/>
+     <path d="M110 82 L132 82 L132 126 L110 126 M388 82 L410 82 L410 126 L388 126 M110 205 L132 205 L132 245 L110 245 M388 205 L410 205 L410 245 L388 245" fill="#111a20" stroke="#8799a3" stroke-width="3"/>
+     <path d="M155 130 H365 M155 181 H365" stroke="#90a3ad" stroke-width="2" opacity=".7"/>
+     <g class="part" data-part="engine" tabindex="0"><rect x="188" y="38" width="144" height="34" rx="8" fill="#b77a22" stroke="#ffe0a0" stroke-width="2"/><text x="260" y="59" text-anchor="middle">MOTOR</text></g>
+     <g class="part" data-part="battery" tabindex="0"><rect x="337" y="44" width="34" height="27" rx="4" fill="#287b61" stroke="#9ce6c8" stroke-width="2"/><text x="354" y="61" text-anchor="middle" class="small">AKÜ</text></g>
+     <g class="part" data-part="transmission" tabindex="0"><rect x="218" y="88" width="84" height="34" rx="7" fill="#657783" stroke="#d2e0e8" stroke-width="2"/><text x="260" y="109" text-anchor="middle">ŞANZIMAN</text></g>
+     <g class="part" data-part="clutch" tabindex="0"><rect x="207" y="128" width="106" height="25" rx="7" fill="#755b9a" stroke="#d9c5ff" stroke-width="2"/><text x="260" y="145" text-anchor="middle">DEBRİYAJ</text></g>
+     <g class="part" data-part="brakes" tabindex="0"><rect x="128" y="208" width="68" height="28" rx="6" fill="#9a4141" stroke="#ffc1c1" stroke-width="2"/><text x="162" y="226" text-anchor="middle">FRENLER</text></g>
+     <g class="part" data-part="suspension" tabindex="0"><rect x="324" y="208" width="68" height="28" rx="6" fill="#386a9a" stroke="#b9dcff" stroke-width="2"/><text x="358" y="226" text-anchor="middle" class="small">SÜSP.</text></g>
+     <g class="part" data-part="exhaust" tabindex="0"><rect x="225" y="248" width="70" height="19" rx="6" fill="#697780" stroke="#d2e0e8" stroke-width="2"/><text x="260" y="261" text-anchor="middle" class="small">EGZOZ</text></g>
+    </svg>
+   </div>
+   <div class="legend"><span><i class="dot"></i>Seçilebilir parça</span><span>Şematik üstten görünüm</span></div>
+  </div>
+  <div class="detail" id="detail"><div class="status">Parça seçilmedi</div><h3>Garaja hoş geldin usta!</h3><p>Soldaki araç şemasından veya parça listesinden bir bölüm seç. Kontrol ederek görev kazan.</p></div>
+ </div>
+ <p class="notice">Bilgi: Bu ilk sürüm eğitim amaçlı şematik prototiptir. Parça konumları ve işlemler henüz üretici servis çizimleriyle doğrulanmış değildir; gerçek araçta işlem yaparken servis dokümanı kullan.</p>
+</section>
+<section class="card">
+ <h2>Parça listesi</h2><div class="parts" id="parts">
+ <button class="part-btn" data-part="engine">Motor <small>1.4 benzinli</small></button>
+ <button class="part-btn" data-part="battery">Akü <small>Elektrik sistemi</small></button>
+ <button class="part-btn" data-part="transmission">Şanzıman <small>Vites sistemi</small></button>
+ <button class="part-btn" data-part="clutch">Debriyaj <small>Kavrama sistemi</small></button>
+ <button class="part-btn" data-part="brakes">Frenler <small>Güvenlik sistemi</small></button>
+ <button class="part-btn" data-part="suspension">Ön süspansiyon <small>Yürüyen aksam</small></button>
+ <button class="part-btn" data-part="exhaust">Egzoz <small>Egzoz hattı</small></button>
+ </div>
+</section>
+<section class="card">
+ <h2>Garaj görevleri</h2><div id="tasks">
+ <div class="task" data-task="engine"><div class="check"></div><div><b>Motoru incele</b><small>Motor bölümünü seç ve kontrol et</small></div></div>
+ <div class="task" data-task="battery"><div class="check"></div><div><b>Aküyü kontrol et</b><small>Akü bölümünü seç ve kontrol et</small></div></div>
+ <div class="task" data-task="brakes"><div class="check"></div><div><b>Fren sistemini incele</b><small>Frenler bölümünü seç ve kontrol et</small></div></div>
+ </div><p id="progress">Tamamlanan görev: 0 / 3</p>
+ <button class="action secondary" id="reset">Görevleri sıfırla</button>
+</section>
+</main>
+<footer>USTA GARAJ · İlk oynanabilir arayüz prototipi · v0.1</footer>
+<script>
+const data={
+ engine:{name:"Motor",status:"Görsel kontrol",desc:"Motor yağı seviyesi, soğutma sıvısı, hortumlar ve görünür kaçaklar kontrol edilir.",check:"Motor çevresinde yağ veya sıvı kaçağı var mı? Kayışlarda çatlak veya gevşeklik görünüyor mu?"},
+ battery:{name:"Akü",status:"Elektrik sistemi",desc:"Akü kutup başları, bağlantıların sıkılığı ve gövdede şişme/hasar olup olmadığı incelenir.",check:"Kutup başlarında oksitlenme var mı? Bağlantılar sağlam mı?"},
+ transmission:{name:"Şanzıman",status:"Aktarma organı",desc:"Vites geçişleri, anormal ses ve gövde çevresindeki olası yağ sızıntıları değerlendirilir.",check:"Vites geçişinde zorlanma veya anormal ses var mı?"},
+ clutch:{name:"Debriyaj",status:"Kavrama sistemi",desc:"Pedal hissi, kavrama noktası ve kaydırma belirtileri değerlendirilir.",check:"Pedal normal dönüyor mu? Hızlanırken motor devri artıp araç hızlanmıyor mu?"},
+ brakes:{name:"Fren sistemi",status:"Güvenlik kontrolü",desc:"Balata ve disk aşınması, hidrolik seviyesi ve kaçak belirtileri kontrol edilir.",check:"Fren hidroliği seviyesi normal mi? Görünür kaçak veya anormal ses var mı?"},
+ suspension:{name:"Ön süspansiyon",status:"Yürüyen aksam",desc:"Amortisör, yay, rot ve bağlantılarda boşluk, hasar veya yağlanma belirtisi incelenir.",check:"Çukurlarda vuruntu, lastiklerde düzensiz aşınma veya yağ kaçağı var mı?"},
+ exhaust:{name:"Egzoz",status:"Egzoz hattı",desc:"Egzoz hattında gevşeklik, pas, darbe ve olağan dışı ses kontrol edilir.",check:"Egzozda sallanma, delik veya normalden yüksek ses var mı?"}
+};
+let selected=null,done=new Set(),xp=0;
+const detail=document.getElementById("detail");
+function choose(id){
+ selected=id;const d=data[id];if(!d)return;
+ document.querySelectorAll("[data-part]").forEach(el=>el.classList.toggle("active",el.dataset.part===id)||el.classList.toggle("selected",el.dataset.part===id));
+ detail.innerHTML='<div class="status">'+d.status+'</div><h3>'+d.name+'</h3><p>'+d.desc+'</p><p><b>Kontrol noktası:</b> '+d.check+'</p><div class="actions"><button class="action" id="inspect">Kontrol ettim (+10 XP)</button></div>';
+ document.getElementById("inspect").onclick=()=>inspect(id);
+}
+function inspect(id){
+ const task=document.querySelector('[data-task="'+id+'"]');
+ if(task&&!done.has(id)){done.add(id);xp+=10;task.classList.add("done");task.querySelector(".check").textContent="✓";document.getElementById("xp").textContent=xp;document.getElementById("level").textContent=1+Math.floor(xp/50);document.getElementById("progress").textContent="Tamamlanan görev: "+done.size+" / 3";document.getElementById("inspect").textContent="Görev tamamlandı";}
+ else{document.getElementById("inspect").textContent="Kontrol tamamlandı";}
+}
+document.querySelectorAll("[data-part]").forEach(el=>{el.addEventListener("click",()=>choose(el.dataset.part));el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();choose(el.dataset.part)}})});
+document.getElementById("reset").onclick=()=>{done.clear();xp=0;selected=null;document.querySelectorAll(".task").forEach(t=>{t.classList.remove("done");t.querySelector(".check").textContent=""});document.getElementById("xp").textContent="0";document.getElementById("level").textContent="1";document.getElementById("progress").textContent="Tamamlanan görev: 0 / 3";detail.innerHTML='<div class="status">Parça seçilmedi</div><h3>Garaja hoş geldin usta!</h3><p>Soldaki araç şemasından veya parça listesinden bir bölüm seç. Kontrol ederek görev kazan.</p>';document.querySelectorAll(".part-btn,.part").forEach(el=>el.classList.remove("active","selected"));};
+</script>
+</body>
+</html>
