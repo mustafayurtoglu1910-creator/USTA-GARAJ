@@ -42,11 +42,11 @@ for(const x of [-1.63,1.63])for(const z of [-2.15,2.15]){const w=new THREE.Mesh(
 box(car,'Radyatör',0,.91,-3.08,2.55,.58,.16,0x455c68,.45);
 box(car,'Motor bloğu',-.05,1.14,-2.0,1.25,.72,1.55,0x59666c,.65);
 box(car,'Motor üst kapağı',-.05,1.56,-2.0,1.12,.18,1.25,0x252f35,.45);
-box(car,'Hava filtresi kutusu',-1.02,1.1,-1.8,.7,.48,.85,0x242c31);
-const airLid=box(car,'Hava filtresi kutusu kapağı',-1.02,1.39,-1.8,.76,.12,.9,0x333d43);airLid.userData.action='air-lid';
-const airFilter=box(car,'Hava filtresi elemanı',-1.02,1.30,-1.8,.48,.07,.62,0xe1b94e);airFilter.userData.action='air-filter';
-const airClipLeft=box(car,'Hava filtresi sol klipsi',-1.43,1.36,-1.8,.09,.18,.1,0x9da8ad,.65);airClipLeft.userData.action='air-clip-left';
-const airClipRight=box(car,'Hava filtresi sağ klipsi',-.54,1.58,-1.8,.22,.32,.24,0xff9f1c,.65);airClipRight.userData.action='air-clip-right';
+box(car,'Hava filtresi kutusu',-1.42,1.1,-1.8,.7,.48,.85,0x242c31);
+const airLid=box(car,'Hava filtresi kutusu kapağı',-1.42,1.39,-1.8,.76,.12,.9,0x333d43);airLid.userData.action='air-lid';
+const airFilter=box(car,'Hava filtresi elemanı',-1.42,1.30,-1.8,.48,.07,.62,0xe1b94e);airFilter.userData.action='air-filter';
+const airClipLeft=box(car,'Hava filtresi sol klipsi',-1.87,1.55,-1.8,.2,.28,.2,0xffbd35,.65);airClipLeft.userData.action='air-clip-left';
+const airClipRight=box(car,'Hava filtresi sağ klipsi',-1.02,1.55,-1.8,.24,.34,.24,0xff9f1c,.65);airClipRight.userData.action='air-clip-right';
 const batteryMesh=box(car,'Akü',1.05,1.12,-1.65,.68,.55,.75,0x235b42);batteryMesh.userData.action='battery';
 const negativeTerminal=new THREE.Mesh(new THREE.SphereGeometry(.095,18,12),mat(0x252b30,.65));negativeTerminal.position.set(.82,1.43,-1.84);negativeTerminal.userData.part='Akü eksi kutup başı';negativeTerminal.userData.action='negative';car.add(negativeTerminal);
 const positiveTerminal=new THREE.Mesh(new THREE.SphereGeometry(.095,18,12),mat(0xb8322b,.55));positiveTerminal.position.set(1.28,1.43,-1.84);positiveTerminal.userData.part='Akü artı kutup başı';positiveTerminal.userData.action='positive';car.add(positiveTerminal);
