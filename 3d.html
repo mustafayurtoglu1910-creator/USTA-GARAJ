@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101820"><title>USTA GARAJ · 3D</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#101820;color:#f3f6f8;font:14px system-ui,Arial;overflow:hidden}header{height:58px;padding:9px 13px;background:#172630;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff22}.logo{font-weight:950;font-size:19px;letter-spacing:1px}.logo span{color:#ffb21a}.sub{font-size:10px;color:#aebdc5}#view{position:absolute;inset:58px 0 190px;background:radial-gradient(ellipse at 50% 45%,#405965,#172630 70%)}canvas{display:block;width:100%;height:100%;touch-action:none}.panel{position:absolute;bottom:0;left:0;right:0;max-height:190px;overflow:auto;background:#172630;border-top:1px solid #ffffff25;padding:10px 12px calc(12px + env(safe-area-inset-bottom))}.toolbar{display:flex;gap:8px;flex-wrap:wrap}.btn{border:0;border-radius:10px;padding:10px 12px;font-weight:800;background:#ffb21a;color:#17212a}.btn.alt{background:#344b59;color:#fff;border:1px solid #ffffff22}.hint{color:#aebdc5;font-size:11px;margin:8px 0}.info{font-size:12px;line-height:1.35;color:#dce5e9}.info b{color:#ffcb61}.title{font-weight:900;font-size:15px;margin:2px 0 5px}.error{color:#ffc36a;padding:20px}
+</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script></head>
+<body>
+<header><div><div class="logo">USTA <span>GARAJ</span> · 3D</div><div class="sub">Fiat Egea Sedan 1.4 · Etkileşimli prototip</div></div><div class="sub">SÜRÜM 0.6</div></header>
+<div id="view"></div>
+<div class="panel"><div class="toolbar"><button class="btn" id="hood">Kaputu aç</button><button class="btn alt" id="top">Üstten bak</button><button class="btn alt" id="reset">Görünümü sıfırla</button></div><div class="hint">Aracı parmağınla sürükleyerek döndür, iki parmakla yakınlaştır. Parçaya dokununca bilgi açılır.</div><div class="info" id="info"><div class="title">Garaja hoş geldin usta!</div>Motor bölmesindeki parçaları seç. Bu 3D model eğitim amaçlı temsildir; OEM ölçü ve yerleşim garantisi vermez.</div></div>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+const host=document.getElementById('view'), info=document.getElementById('info');
+const scene=new THREE.Scene();scene.background=new THREE.Color(0x263b47);
+const camera=new THREE.PerspectiveCamera(42,1,.1,100);camera.position.set(7,8,10);
+const renderer=new THREE.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;host.appendChild(renderer.domElement);
+const controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.target.set(0,0.7,0);controls.maxPolarAngle=Math.PI*.48;controls.minDistance=5;controls.maxDistance=18;
+scene.add(new THREE.HemisphereLight(0xdceeff,0x34404a,2));
+const sun=new THREE.DirectionalLight(0xffffff,2.4);sun.position.set(-5,10,7);sun.castShadow=true;scene.add(sun);
+const floor=new THREE.Mesh(new THREE.PlaneGeometry(30,30),new THREE.MeshStandardMaterial({color:0x344752,roughness:.9}));floor.rotation.x=-Math.PI/2;floor.position.y=-.15;floor.receiveShadow=true;scene.add(floor);
+const car=new THREE.Group();scene.add(car);
+function mat(color,metal=0,rough=.45){return new THREE.MeshStandardMaterial({color,metalness:metal,roughness:rough})}
+function box(parent,name,x,y,z,sx,sy,sz,color,metal=0){const m=new THREE.Mesh(new THREE.BoxGeometry(sx,sy,sz),mat(color,metal));m.position.set(x,y,z);m.castShadow=true;m.receiveShadow=true;m.userData.part=name;parent.add(m);return m}
+function cyl(parent,name,x,y,z,r1,r2,h,color,rot=0){const m=new THREE.Mesh(new THREE.CylinderGeometry(r1,r2,h,24),mat(color,.25));m.position.set(x,y,z);m.rotation.z=rot;m.castShadow=true;m.userData.part=name;parent.add(m);return m}
+const bodyMat=mat(0xd9e0e4,.55,.27),glass=mat(0x203d4c,.45,.2),rubber=mat(0x101418),rim=mat(0x9ba8ae,.8,.22);
+// lower body and cabin
+box(car,'Gövde',0,.45,0,3.25,.55,6.8,0x9aa8af,.55);
+box(car,'Kaput',0,.79,-2.15,3.18,.16,2.25,0xcbd4d9,.6);
+box(car,'Bagaj',0,.77,2.45,3.12,.17,1.55,0xcbd4d9,.6);
+const cabin=box(car,'Kabin',0,1.12,.15,2.72,.9,3.2,0x6f818a,.4);
+box(car,'Ön cam',0,1.55,-1.05,2.48,.04,.85,0x244555,.4);
+box(car,'Arka cam',0,1.55,1.32,2.45,.04,.78,0x244555,.4);
+for(const x of [-1.63,1.63])for(const z of [-2.15,2.15]){const w=new THREE.Mesh(new THREE.CylinderGeometry(.57,.57,.28,32),rubber);w.rotation.z=Math.PI/2;w.position.set(x,.48,z);w.castShadow=true;car.add(w);const r=new THREE.Mesh(new THREE.CylinderGeometry(.32,.32,.3,24),rim);r.rotation.z=Math.PI/2;r.position.copy(w.position);car.add(r)}
+// Engine compartment walls and front radiator
+box(car,'Radyatör',0,.91,-3.08,2.55,.58,.16,0x455c68,.45);
+box(car,'Motor bloğu',-.05,1.14,-2.0,1.25,.72,1.55,0x59666c,.65);
+box(car,'Motor üst kapağı',-.05,1.56,-2.0,1.12,.18,1.25,0x252f35,.45);
+box(car,'Hava filtresi kutusu',-1.02,1.1,-1.8,.7,.48,.85,0x242c31);
+box(car,'Akü',1.05,1.12,-1.65,.68,.55,.75,0x235b42);
+box(car,'Sigorta kutusu',1.05,1.45,-1.65,.48,.18,.48,0x30383b);
+cyl(car,'Soğutma suyu genleşme kabı',1.05,1.22,-2.55,.29,.29,.52,0x64a7bd);
+cyl(car,'Fren hidroliği deposu',1.05,1.46,-.95,.22,.22,.3,0xd7c78e);
+cyl(car,'Cam suyu deposu',1.2,1.0,-2.72,.24,.27,.56,0x3487b8);
+cyl(car,'Soğutma fanı',0,1.02,-2.88,.53,.53,.13,0x657983);
+cyl(car,'Yağ dolum kapağı',-.38,1.69,-1.8,.17,.17,.12,0xe4ae37);
+cyl(car,'Yağ seviye çubuğu',-.75,1.22,-1.2,.07,.07,.55,0xe1a02e);
+// hood pivot group; closed initially, rotate open to reveal bay
+const hood=new THREE.Group();hood.position.set(0,.88,-3.05);car.add(hood);
+const hoodMesh=new THREE.Mesh(new THREE.BoxGeometry(3.12,.13,2.15),bodyMat);hoodMesh.position.set(0,0,1.05);hoodMesh.castShadow=true;hoodMesh.userData.part='Kaput';hood.add(hoodMesh);
+box(car,'Ön tampon',0,.4,-3.48,3.3,.35,.35,0x424e55,.35);
+const raycaster=new THREE.Raycaster(),pointer=new THREE.Vector2();let down=null;
+renderer.domElement.addEventListener('pointerdown',e=>down={x:e.clientX,y:e.clientY});
+renderer.domElement.addEventListener('pointerup',e=>{if(!down||Math.hypot(e.clientX-down.x,e.clientY-down.y)>8){down=null;return}const r=renderer.domElement.getBoundingClientRect();pointer.x=((e.clientX-r.left)/r.width)*2-1;pointer.y=-((e.clientY-r.top)/r.height)*2+1;raycaster.setFromCamera(pointer,camera);const hits=raycaster.intersectObjects(car.children,true);const hit=hits.find(h=>h.object.userData.part);if(hit)show(hit.object.userData.part);down=null});
+const descriptions={
+'Motor bloğu':'1.4 FIRE benzinli motorun ana gövdesi. Yağ, soğutma ve ateşleme sistemleriyle birlikte çalışır.',
+'Motor üst kapağı':'Motorun üst bölümünü örnekleyen kapak. Gerçek parça şekli ve bağlantıları motor koduna göre değişebilir.',
+'Akü':'12 volt akü. Kutup başı oksitlenmesi, gevşeklik ve sabitleme kontrol edilir.',
+'Hava filtresi kutusu':'Emme havasını filtreleyen kutu. Filtre elemanı ve hava hortumları incelenir.',
+'Sigorta kutusu':'Motor bölmesi elektrik koruma kutusu. Sigorta değerleri araç kitapçığından doğrulanmalıdır.',
+'Radyatör':'Soğutma sıvısının ısısını düşürür. Sıcak motorda kapak açılmaz.',
+'Soğutma fanı':'Radyatörden hava geçirir. Elektrik nedeniyle motor kapalıyken dahi beklenmedik çalışabilir.',
+'Soğutma suyu genleşme kabı':'Soğutma sıvısı seviyesi yalnızca motor tamamen soğukken kontrol edilir.',
+'Fren hidroliği deposu':'Fren hidroliği seviyesini gösterir. Seviye düşüşü varsa kaçak ve balata durumu kontrol edilmelidir.',
+'Cam suyu deposu':'Ön cam yıkama sıvısı deposu. Bu modeldeki çizim konumu temsildir; araç varyantına göre doğrulanmalıdır.',
+'Yağ dolum kapağı':'Motor yağı ekleme noktası. Uygun yağ standardı kullanım kılavuzundan seçilmelidir.',
+'Yağ seviye çubuğu':'Motor yağı seviyesini ölçer. Araç düz zeminde ve motor durduktan sonra ölçüm yapılır.',
+'Kaput':'Kaput menteşe ekseni ve açılma hareketini gösteren basitleştirilmiş model.',
+'Gövde':'Sedan gövde ana formu. Birebir sac kalıbı veya ölçülü CAD değildir.'
+};
+function show(n){info.innerHTML='<div class="title">'+n+'</div>'+(descriptions[n]||'Seçilen gövde parçası.')+'<br><span style="color:#ffcb61">Bilgi: Eğitim amaçlı temsili 3D model.</span>'}
+let opened=false;document.getElementById('hood').onclick=()=>{opened=!opened;hood.rotation.x=opened?-1.35:0;document.getElementById('hood').textContent=opened?'Kaputu kapat':'Kaputu aç';};
+document.getElementById('top').onclick=()=>{camera.position.set(0,12,.1);controls.target.set(0,.7,0);controls.update()};
+document.getElementById('reset').onclick=()=>{camera.position.set(7,8,10);controls.target.set(0,.7,0);controls.update()};
+function resize(){const w=host.clientWidth,h=host.clientHeight;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h)}window.addEventListener('resize',resize);resize();
+function animate(){requestAnimationFrame(animate);controls.update();renderer.render(scene,camera)}animate();
+</script></body></html>
