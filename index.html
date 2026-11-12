@@ -6,139 +6,111 @@
 <meta name="theme-color" content="#101820">
 <title>USTA GARAJ</title>
 <style>
-:root{color-scheme:dark;--bg:#101820;--panel:#1b2833;--panel2:#263946;--text:#f4f7fa;--muted:#a9bac7;--accent:#ffb000;--good:#42c58a}
-*{box-sizing:border-box}body{margin:0;background:linear-gradient(160deg,#101820,#172632);color:var(--text);font:15px system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-header{padding:16px;display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid #ffffff18}.brand{font-weight:900;letter-spacing:1.5px;font-size:20px}.brand span{color:var(--accent)}.sub{font-size:12px;color:var(--muted)}
-.stats{display:flex;gap:7px}.pill{background:var(--panel2);border:1px solid #ffffff18;padding:8px 10px;border-radius:12px;font-weight:700;font-size:12px}
-main{max-width:1050px;margin:auto;padding:14px;display:grid;gap:14px}.card{background:var(--panel);border:1px solid #ffffff18;border-radius:18px;padding:14px;box-shadow:0 12px 30px #0003}
-h2{font-size:16px;margin:0 0 9px}p{color:var(--muted);line-height:1.45;margin:6px 0}.car-head{display:flex;justify-content:space-between;gap:10px;align-items:start}.tag{color:var(--accent);font-size:11px;font-weight:800;letter-spacing:1px}
-.layout{display:grid;grid-template-columns:1fr;gap:13px;margin-top:12px}.car-wrap{background:radial-gradient(ellipse at center,#344958,#17232d 72%);border-radius:14px;padding:8px}.car-svg{width:100%;height:auto;display:block;max-height:570px}
-.part{cursor:pointer;outline:none}.part rect,.part path,.part circle,.part ellipse{transition:.15s}.part:hover rect,.part:focus rect,.part.selected rect{stroke:var(--accent);stroke-width:3}.part.selected rect{fill:#72531d}.part text{font-size:10px;fill:white;pointer-events:none;font-weight:800}.part .tiny{font-size:8px}
-.legend{display:flex;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:12px;margin-top:8px}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;background:var(--accent)}
-.detail{background:#14212a;border-radius:14px;padding:13px;min-height:175px}.detail h3{margin:0 0 7px;font-size:18px}.status{font-size:11px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.6px}
-.parts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.part-btn{background:var(--panel2);color:var(--text);border:1px solid #ffffff1c;border-radius:12px;padding:11px;text-align:left;font-weight:700;min-height:48px}.part-btn small{display:block;color:var(--muted);font-weight:400;margin-top:3px}.part-btn.active{border-color:var(--accent);background:#4a391b}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}button{font:inherit;cursor:pointer}.action{border:0;border-radius:11px;padding:11px 14px;font-weight:800;background:var(--accent);color:#1b1b1b}.action.secondary{background:#344957;color:white;border:1px solid #ffffff22}
-.task{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #ffffff12}.task:last-child{border:0}.check{width:24px;height:24px;border-radius:8px;border:1px solid #ffffff44;display:grid;place-items:center;color:#101820}.task.done .check{background:var(--good);border-color:var(--good)}.task b{font-size:14px}.task small{display:block;color:var(--muted);margin-top:2px}
-.notice{font-size:12px;color:var(--muted);border-left:3px solid var(--accent);padding-left:10px;margin-top:10px}footer{text-align:center;color:#8295a3;font-size:11px;padding:4px 14px 24px}
-@media(min-width:760px){main{grid-template-columns:1.15fr .85fr}.wide{grid-column:1/-1}.layout{grid-template-columns:1.12fr .88fr}.parts{grid-template-columns:1fr 1fr}}
-
-
-
-/* USTA GARAJ görsel güncellemesi */
-.car-wrap{background:radial-gradient(ellipse at 50% 42%,#536b78 0%,#263b48 48%,#111c24 100%);border:1px solid #8ca2ad55;box-shadow:inset 0 0 35px #0008,0 10px 24px #0005}
-.car-svg{filter:drop-shadow(0 12px 12px #0008)}
-.part rect,.part path,.part circle,.part ellipse{filter:drop-shadow(0 2px 2px #0008)}
-.part:hover rect,.part:focus rect,.part.selected rect{filter:drop-shadow(0 0 7px #ffb000aa)}
-.part-btn{transition:transform .15s,border-color .15s,background .15s}
-.part-btn:active{transform:scale(.98)}
-.card{background:linear-gradient(145deg,#1d2d38,#17242d);border-color:#ffffff24}
-.pill{box-shadow:inset 0 1px #ffffff12}
-.action{box-shadow:0 4px 0 #9b6900;transition:transform .12s,box-shadow .12s}
-.action:active{transform:translateY(3px);box-shadow:0 1px 0 #9b6900}
-@media(max-width:420px){header{padding:12px}.brand{font-size:18px}.stats{gap:5px}.pill{padding:7px 8px;font-size:11px}main{padding:10px}.card{padding:11px}.car-svg{max-height:480px}}
-
+:root{color-scheme:dark;--bg:#101820;--panel:#1b2933;--panel2:#263b48;--text:#f4f7fa;--muted:#afc0ca;--gold:#ffb21a;--green:#55d69a}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 0,#263b49,#101820 65%);color:var(--text);font:15px system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid #ffffff20;background:#101820cc;position:sticky;top:0;z-index:5;backdrop-filter:blur(10px)}.brand{font-weight:950;letter-spacing:1.5px;font-size:20px}.brand span{color:var(--gold)}.sub{font-size:11px;color:var(--muted)}.stats{display:flex;gap:6px}.pill{background:#263b48;border:1px solid #ffffff20;padding:7px 9px;border-radius:11px;font-size:12px;font-weight:800;white-space:nowrap}
+main{max-width:1100px;margin:auto;padding:12px;display:grid;gap:12px}.card{background:linear-gradient(145deg,#1e303c,#17242d);border:1px solid #ffffff20;border-radius:17px;padding:13px;box-shadow:0 12px 28px #0005}h2{font-size:16px;margin:0 0 8px}p{color:var(--muted);line-height:1.45;margin:5px 0}.tag{font-size:10px;color:var(--gold);font-weight:900;letter-spacing:1px}.car-head{display:flex;justify-content:space-between;gap:8px}.layout{display:grid;gap:12px;margin-top:12px}.stage{padding:12px 6px 16px;border-radius:15px;background:radial-gradient(ellipse,#536b78 0,#293e4b 54%,#111c24 100%);border:1px solid #91a7b455;overflow:hidden}.front-label{text-align:center;color:#e8eff2;font-size:11px;font-weight:900;letter-spacing:2px;margin-bottom:8px}
+.car{position:relative;width:min(100%,370px);height:540px;margin:auto;border-radius:46% 46% 22% 22%/15% 15% 9% 9%;background:linear-gradient(90deg,#53636d,#d7dfe3 16%,#8798a1 29%,#e7ecef 50%,#8798a1 71%,#d7dfe3 84%,#53636d);border:5px solid #17232b;box-shadow:inset 0 0 0 3px #ffffff55,0 18px 25px #0008}
+.car:before{content:"";position:absolute;left:7%;right:7%;top:3%;height:43%;border-radius:24% 24% 8% 8%;background:linear-gradient(90deg,#26343d,#52636c 12%,#1a2a34 50%,#52636c 88%,#26343d);border:3px solid #a9b7be;box-shadow:inset 0 0 0 5px #293943}
+.car:after{content:"";position:absolute;left:11%;right:11%;top:52%;height:34%;border-radius:18% 18% 12% 12%;background:linear-gradient(90deg,#1a2b35,#294b5c 50%,#1a2b35);border:4px solid #91a2aa;box-shadow:inset 0 0 0 3px #ffffff20}
+.wheel{position:absolute;width:13%;height:17%;background:repeating-linear-gradient(0deg,#080d11 0 5px,#26343d 5px 8px);border:3px solid #81919a;border-radius:9px;z-index:2}.w1{left:-4%;top:18%}.w2{right:-4%;top:18%}.w3{left:-4%;top:67%}.w4{right:-4%;top:67%}
+.lamp{position:absolute;top:1%;width:22%;height:4%;background:linear-gradient(#fff,#a6d7e8);border:2px solid #53636d;border-radius:8px;z-index:3}.l1{left:9%}.l2{right:9%}
+.bay{position:absolute;z-index:3;left:12%;right:12%;top:8%;height:39%;border:2px solid #83959e;border-radius:13px;background:linear-gradient(145deg,#1c2a32,#354750);box-shadow:inset 0 0 16px #0009}
+.bay-title{position:absolute;top:2%;left:0;right:0;text-align:center;font-size:9px;color:#b9c8ce;font-weight:900;letter-spacing:1.5px}
+.part{position:absolute;border:2px solid #c0cbd0;border-radius:8px;color:#fff;font-size:9px;font-weight:900;display:flex;align-items:center;justify-content:center;text-align:center;padding:2px;cursor:pointer;box-shadow:0 3px 6px #0008;line-height:1.05;z-index:4;min-height:27px}
+.part:focus-visible,.part.selected{outline:3px solid var(--gold);outline-offset:2px;filter:brightness(1.3);z-index:5}
+.engine{left:32%;top:25%;width:39%;height:36%;background:linear-gradient(145deg,#aab7bd,#4a5a62 40%,#1d2b32);border-radius:13px;font-size:12px;box-shadow:inset 0 0 0 4px #ffffff20,0 5px 8px #0009}
+.battery{right:3%;top:20%;width:22%;height:22%;background:linear-gradient(145deg,#378b65,#14543b)}
+.air{left:3%;top:24%;width:24%;height:25%;background:linear-gradient(145deg,#9b773b,#57401e)}
+.fuse{right:4%;top:47%;width:20%;height:14%;background:linear-gradient(145deg,#b48a42,#57401e)}
+.radiator{left:12%;right:12%;top:4%;height:9%;background:repeating-linear-gradient(90deg,#66808b 0 3px,#2d4652 3px 6px);color:#fff}
+.coolant{left:4%;top:61%;width:20%;height:18%;background:linear-gradient(145deg,#58a8b7,#205b70);border-radius:45% 45% 30% 30%}
+.brakefluid{right:5%;top:66%;width:18%;height:15%;background:linear-gradient(145deg,#d1c28a,#766b42);color:#17212a}
+.washer{left:28%;top:72%;width:18%;height:13%;background:linear-gradient(145deg,#4d9bc7,#205277)}
+.fan{left:42%;top:66%;width:24%;height:24%;border-radius:50%;background:repeating-conic-gradient(#83949c 0 18deg,#263740 18deg 45deg);border:4px solid #b8c5ca}
+.bay-hose{position:absolute;height:5px;border-radius:9px;background:#bd583e;z-index:3;box-shadow:0 1px 3px #000}.hose1{left:20%;top:47%;width:23%;transform:rotate(-18deg)}.hose2{right:18%;top:59%;width:22%;transform:rotate(25deg);background:#4a9b9e}
+.cabin-glass{position:absolute;z-index:3;top:54%;left:17%;right:17%;height:15%;border-radius:20% 20% 5% 5%;border:2px solid #84969e;background:linear-gradient(90deg,#1b303b,#315366 50%,#1b303b);text-align:center;padding-top:15px;color:#a9c0cb;font-size:10px;font-weight:800}
+.rear-glass{position:absolute;z-index:3;bottom:4%;left:18%;right:18%;height:10%;border-radius:8px 8px 18px 18px;background:#253c49;border:2px solid #82949d}
+.car-caption{text-align:center;color:#d5e0e5;font-size:10px;margin-top:8px}
+.legend{display:flex;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:11px;margin-top:8px}.legend i{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--gold);margin-right:4px}
+.detail{background:#13212a;border:1px solid #ffffff18;border-radius:13px;padding:13px;min-height:160px}.detail h3{margin:4px 0 7px;font-size:18px}.status{font-size:10px;color:var(--gold);font-weight:900;letter-spacing:1px;text-transform:uppercase}
+.parts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.part-btn{background:#263b48;color:#f4f7fa;border:1px solid #ffffff20;border-radius:11px;padding:10px;text-align:left;font-weight:800;min-height:48px}.part-btn small{display:block;color:#b2c1c9;font-weight:400;margin-top:3px;font-size:10px}.part-btn.active{border-color:var(--gold);background:#51401f}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}button{font:inherit;cursor:pointer}.action{border:0;border-radius:10px;padding:10px 13px;font-weight:900;background:var(--gold);color:#1b1b1b}.action.secondary{background:#344957;color:white;border:1px solid #ffffff22}
+.task{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #ffffff15}.task:last-child{border:0}.check{width:24px;height:24px;border-radius:7px;border:1px solid #ffffff44;display:grid;place-items:center}.task.done .check{background:var(--green);color:#102018}.task b{font-size:13px}.task small{display:block;color:var(--muted);font-size:11px;margin-top:2px}.notice{font-size:11px;color:#bdcbd1;border-left:3px solid var(--gold);padding-left:9px;margin-top:10px}footer{text-align:center;color:#8295a3;font-size:10px;padding:4px 14px 22px}
+@media(min-width:780px){main{grid-template-columns:1.1fr .9fr}.wide{grid-column:1/-1}.layout{grid-template-columns:1fr .8fr;align-items:center}.parts{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:390px){header{padding:10px}.brand{font-size:17px}.pill{font-size:10px;padding:6px}.car{height:500px;width:min(100%,340px)}.part{font-size:8px}.engine{font-size:10px}}
 </style>
 </head>
 <body>
-<header><div><div class="brand">USTA <span>GARAJ</span></div><div class="sub">Araç bakım ve arıza tespit oyunu · GÜNCEL SÜRÜM 0.3</div></div><div class="stats"><div class="pill">⭐ <span id="xp">0</span> XP</div><div class="pill">Seviye <span id="level">1</span></div></div></header>
+<header><div><div class="brand">USTA <span>GARAJ</span></div><div class="sub">Araç bakım ve arıza tespit oyunu · SÜRÜM 0.4</div></div><div class="stats"><div class="pill">⭐ <span id="xp">0</span> XP</div><div class="pill">Seviye <span id="level">1</span></div></div></header>
 <main>
 <section class="card wide">
- <div class="car-head"><div><div class="tag">GARAJ 01 · MOTOR BÖLMESİ</div><h2 style="margin:4px 0">Fiat Egea Sedan 1.4 Benzinli</h2><p>2022 model · Önden görünüm yönü yukarıda · Parçaya dokunarak incele.</p></div><div class="pill">2022</div></div>
- <div class="layout">
-  <div>
-   <div class="car-wrap">
-    <svg class="car-svg" viewBox="0 0 500 590" role="img" aria-label="Fiat Egea temsili üstten görünüm, motor bölmesi parçaları seçilebilir">
-     <defs>
-      <linearGradient id="paint" x1="0" x2="1"><stop stop-color="#667783"/><stop offset=".5" stop-color="#e0e6e9"/><stop offset="1" stop-color="#687984"/></linearGradient>
-      <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#294655"/><stop offset="1" stop-color="#152934"/></linearGradient>
-      <linearGradient id="metal" x1="0" x2="1"><stop stop-color="#52636d"/><stop offset=".5" stop-color="#9baab1"/><stop offset="1" stop-color="#465761"/></linearGradient>
-     </defs>
-     <!-- Vehicle body: front at top -->
-     <path d="M150 18 Q250 -1 350 18 Q390 27 405 76 L427 145 L427 480 Q420 548 365 565 Q250 585 135 565 Q80 548 73 480 L73 145 L95 76 Q110 27 150 18Z" fill="url(#paint)" stroke="#101820" stroke-width="8"/>
-     <!-- headlights / front bumper -->
-     <path d="M104 70 Q145 42 190 53 L183 82 L112 106Z M396 70 Q355 42 310 53 L317 82 L388 106Z" fill="#dce9ee" stroke="#344650" stroke-width="4"/>
-     <path d="M116 29 Q250 5 384 29 L396 58 Q250 37 104 58Z" fill="#263640" stroke="#9baab1" stroke-width="3"/>
-     <!-- engine bay perimeter -->
-     <path d="M112 111 Q250 88 388 111 L395 269 Q250 286 105 269Z" fill="#18252d" stroke="#53636c" stroke-width="5"/>
-     <path d="M126 123 Q250 105 374 123 L379 251 Q250 266 121 251Z" fill="#263740" stroke="#7f9099" stroke-width="2" stroke-dasharray="5 4"/>
-     <!-- inner fenders -->
-     <path d="M96 124 Q112 115 126 128 L126 253 Q111 265 96 250Z M404 124 Q388 115 374 128 L374 253 Q389 265 404 250Z" fill="#303f48" stroke="#a0adb4" stroke-width="3"/>
-     <!-- cabin -->
-     <path d="M126 292 Q250 273 374 292 L394 405 Q385 435 354 445 L146 445 Q115 435 106 405Z" fill="url(#glass)" stroke="#3b4c55" stroke-width="5"/>
-     <path d="M137 303 Q250 287 363 303 L375 376 L125 376Z" fill="#294552" stroke="#73838b" stroke-width="3"/>
-     <path d="M125 389 L375 389 L356 433 L144 433Z" fill="#182a34" stroke="#73838b" stroke-width="3"/>
-     <path d="M250 296 V435" stroke="#72848e" stroke-width="2" opacity=".65"/>
-     <!-- wheels -->
-     <rect x="62" y="140" width="35" height="93" rx="12" fill="#0a1014" stroke="#7e8d95" stroke-width="4"/>
-     <rect x="403" y="140" width="35" height="93" rx="12" fill="#0a1014" stroke="#7e8d95" stroke-width="4"/>
-     <rect x="62" y="410" width="35" height="93" rx="12" fill="#0a1014" stroke="#7e8d95" stroke-width="4"/>
-     <rect x="403" y="410" width="35" height="93" rx="12" fill="#0a1014" stroke="#7e8d95" stroke-width="4"/>
-     <!-- clickable engine bay components; positions are illustrative, not factory service dimensions -->
-     <g class="part" data-part="radiator" tabindex="0"><rect x="143" y="119" width="214" height="19" rx="5" fill="#4c7180" stroke="#b9dce7" stroke-width="2"/><text x="250" y="132" text-anchor="middle" class="tiny">RADYATÖR</text></g>
-     <g class="part" data-part="engine" tabindex="0"><rect x="177" y="153" width="145" height="78" rx="13" fill="url(#metal)" stroke="#e1e9ed" stroke-width="3"/><rect x="192" y="166" width="115" height="50" rx="8" fill="#34454e" stroke="#aab7bd" stroke-width="2"/><text x="250" y="188" text-anchor="middle">1.4 MOTOR</text><text x="250" y="202" text-anchor="middle" class="tiny">FIRE · BENZİNLİ</text></g>
-     <g class="part" data-part="battery" tabindex="0"><rect x="326" y="151" width="48" height="57" rx="6" fill="#24634e" stroke="#a6e3c8" stroke-width="3"/><rect x="339" y="145" width="20" height="8" rx="2" fill="#c8d5d9"/><text x="350" y="180" text-anchor="middle">AKÜ</text><text x="350" y="192" text-anchor="middle" class="tiny">12V</text></g>
-     <g class="part" data-part="air" tabindex="0"><rect x="124" y="157" width="47" height="60" rx="8" fill="#6b542c" stroke="#e9ca83" stroke-width="2"/><path d="M132 168 H163 M132 177 H163 M132 186 H163" stroke="#f0d99e" stroke-width="2"/><text x="147" y="204" text-anchor="middle" class="tiny">HAVA</text></g>
-     <g class="part" data-part="fuse" tabindex="0"><rect x="330" y="218" width="43" height="31" rx="5" fill="#6b5531" stroke="#f3d18a" stroke-width="2"/><text x="351" y="237" text-anchor="middle" class="tiny">SİGORTA</text></g>
-     <g class="part" data-part="coolant" tabindex="0"><path d="M130 226 Q130 216 141 216 H166 Q176 216 176 228 V250 Q176 259 164 259 H142 Q130 259 130 247Z" fill="#4b8b9b" stroke="#b8eaf2" stroke-width="2"/><text x="153" y="241" text-anchor="middle" class="tiny">SU</text></g>
-     <g class="part" data-part="brakefluid" tabindex="0"><path d="M286 236 Q286 226 297 226 H315 Q325 226 325 237 V254 H286Z" fill="#b1a16b" stroke="#f5e5ae" stroke-width="2"/><text x="305" y="247" text-anchor="middle" class="tiny">FREN</text></g>
-     <g class="part" data-part="washer" tabindex="0"><path d="M184 238 Q184 229 194 229 H214 Q224 229 224 239 V258 H184Z" fill="#3b779c" stroke="#b7e1f7" stroke-width="2"/><text x="204" y="250" text-anchor="middle" class="tiny">CAM SUYU</text></g>
-     <g class="part" data-part="fan" tabindex="0"><circle cx="250" cy="247" r="22" fill="#26363e" stroke="#c5d1d6" stroke-width="3"/><circle cx="250" cy="247" r="6" fill="#aebbc1"/><path d="M250 225 Q265 230 256 243 Q250 247 250 247 M272 247 Q267 262 254 253 Q250 247 250 247 M250 269 Q235 264 244 251 Q250 247 250 247 M228 247 Q233 232 246 241 Q250 247 250 247" fill="#71838c"/><text x="250" y="280" text-anchor="middle" class="tiny">SOĞUTMA FANI</text></g>
-     <text x="250" y="477" text-anchor="middle" fill="#dbe5e9" font-size="11" font-weight="800">ARAÇ ÖNÜ ↑</text>
-     <text x="250" y="519" text-anchor="middle" fill="#9fb0b8" font-size="10">Temsili araç gövdesi</text>
-    </svg>
-   </div>
-   <div class="legend"><span><i class="dot"></i>Dokunulabilir parça</span><span>Ön taraf yukarıdadır</span></div>
-  </div>
-  <div class="detail" id="detail"><div class="status">Parça seçilmedi</div><h3>Garaja hoş geldin usta!</h3><p>Motor bölmesindeki bir parçaya veya aşağıdaki listeden bir bölüme dokun.</p></div>
- </div>
- <p class="notice">Önemli: Bu, oyun için hazırlanmış geliştirilmiş temsili yerleşimdir; Fiat'ın fabrika servis çizimi veya birebir ölçülü parça haritası değildir. Parça konumları, araç üzerindeki VIN/motor koduna ait servis dokümanıyla doğrulanmalıdır. Gerçek araçta işlem yaparken bu çizimi tek başına kullanma.</p>
+<div class="car-head"><div><div class="tag">GARAJ 01 · MOTOR BÖLMESİ</div><h2 style="margin:4px 0">Fiat Egea Sedan 1.4 Benzinli</h2><p>2022 model · Üstten görünüm · İncelemek için parçaya dokun.</p></div><div class="pill">2022</div></div>
+<div class="layout">
+<div>
+<div class="stage">
+<div class="front-label">▲ ARAÇ ÖNÜ</div>
+<div class="car" role="group" aria-label="Temsili araç üstten görünüm">
+<div class="wheel w1"></div><div class="wheel w2"></div><div class="wheel w3"></div><div class="wheel w4"></div><div class="lamp l1"></div><div class="lamp l2"></div>
+<div class="bay"><div class="bay-title">MOTOR BÖLMESİ</div></div>
+<button class="part radiator" data-part="radiator">RADYATÖR</button>
+<button class="part engine" data-part="engine">1.4 FIRE<br>MOTOR</button>
+<button class="part battery" data-part="battery">AKÜ<br>12V</button>
+<button class="part air" data-part="air">HAVA FİLTRESİ</button>
+<button class="part fuse" data-part="fuse">SİGORTA</button>
+<button class="part coolant" data-part="coolant">GENLEŞME<br>KABI</button>
+<button class="part brakefluid" data-part="brakefluid">FREN<br>HİDROLİĞİ</button>
+<button class="part washer" data-part="washer">CAM SUYU</button>
+<button class="part fan" data-part="fan">FAN</button>
+<div class="bay-hose hose1"></div><div class="bay-hose hose2"></div>
+<div class="cabin-glass">ÖN CAM</div><div class="rear-glass"></div>
+</div><div class="car-caption">Temsili Egea gövde görünümü · Ön taraf yukarıda</div>
+</div>
+<div class="legend"><span><i></i>Seçilebilir parça</span><span>Parça seçince kontrol bilgisi açılır</span></div>
+</div>
+<div class="detail" id="detail"><div class="status">Garaj hazır</div><h3>Hoş geldin usta!</h3><p>Aracın üzerindeki renkli parçalara veya aşağıdaki parça listesine dokun. Her parça için kontrol açıklaması ve güvenlik uyarısı gösterilir.</p></div>
+</div>
+<p class="notice">Teknik not: Bu çizim, önceki sürümdeki SVG yerine telefonlarda daha uyumlu HTML/CSS ile oluşturulmuştur. Yerleşim görsel amaçlı temsildir; fabrika servis şeması veya birebir ölçü değildir. Gerçek araçta işlem yapmadan önce VIN/motor koduna uygun servis dokümanıyla doğrula.</p>
 </section>
-<section class="card"><h2>Motor bölmesi parça listesi</h2><div class="parts">
-<button class="part-btn" data-part="engine">Motor <small>1.4 FIRE benzinli</small></button>
-<button class="part-btn" data-part="battery">Akü <small>12V elektrik beslemesi</small></button>
-<button class="part-btn" data-part="air">Hava filtresi kutusu <small>Emiş sistemi</small></button>
-<button class="part-btn" data-part="fuse">Sigorta kutusu <small>Elektrik dağıtımı</small></button>
-<button class="part-btn" data-part="radiator">Radyatör <small>Soğutma sistemi</small></button>
-<button class="part-btn" data-part="fan">Soğutma fanı <small>Radyatör fanı</small></button>
-<button class="part-btn" data-part="coolant">Soğutma suyu deposu <small>Genleşme kabı</small></button>
-<button class="part-btn" data-part="brakefluid">Fren hidroliği deposu <small>Fren sistemi</small></button>
-<button class="part-btn" data-part="washer">Cam suyu deposu <small>Yıkama sistemi</small></button>
+<section class="card"><h2>Motor bölmesi · Parça kataloğu</h2><div class="parts">
+<button class="part-btn" data-part="engine">Motor <small>1.4 FIRE benzinli</small></button><button class="part-btn" data-part="battery">Akü <small>12V elektrik beslemesi</small></button><button class="part-btn" data-part="air">Hava filtresi kutusu <small>Emiş sistemi</small></button><button class="part-btn" data-part="fuse">Sigorta kutusu <small>Elektrik dağıtımı</small></button><button class="part-btn" data-part="radiator">Radyatör <small>Soğutma sistemi</small></button><button class="part-btn" data-part="fan">Soğutma fanı <small>Radyatör fanı</small></button><button class="part-btn" data-part="coolant">Genleşme kabı <small>Soğutma sıvısı</small></button><button class="part-btn" data-part="brakefluid">Fren hidroliği <small>Fren sistemi</small></button><button class="part-btn" data-part="washer">Cam suyu deposu <small>Yıkama sistemi</small></button>
 </div></section>
-<section class="card"><h2>Garaj görevleri</h2>
-<div class="task" data-task="engine"><div class="check"></div><div><b>Motoru incele</b><small>Motor bölümünü seç ve kontrol et</small></div></div>
-<div class="task" data-task="battery"><div class="check"></div><div><b>Aküyü kontrol et</b><small>Akü bağlantılarını incele</small></div></div>
-<div class="task" data-task="coolant"><div class="check"></div><div><b>Soğutma sistemini incele</b><small>Genleşme kabı ve çevresini kontrol et</small></div></div>
+<section class="card"><h2>Usta görevleri</h2>
+<div class="task" data-task="engine"><div class="check"></div><div><b>Motoru incele</b><small>Motor çevresi, hortumlar ve görünür kaçaklar</small></div></div>
+<div class="task" data-task="battery"><div class="check"></div><div><b>Aküyü kontrol et</b><small>Kutup başları ve akü gövdesi</small></div></div>
+<div class="task" data-task="coolant"><div class="check"></div><div><b>Soğutma sistemini incele</b><small>Soğuk motorda seviye ve kaçak kontrolü</small></div></div>
 <p id="progress">Tamamlanan görev: 0 / 3</p><button class="action secondary" id="reset">Görevleri sıfırla</button>
 </section>
 </main>
-<footer>USTA GARAJ · GÜNCEL SÜRÜM 0.3 · Egea motor bölmesi prototipi</footer>
+<footer>USTA GARAJ · SÜRÜM 0.4 · MOBİL GARAJ PROTOTİPİ</footer>
 <script>
 const data={
-engine:{name:"1.4 FIRE motor",status:"Motor sistemi",desc:"Benzinli motorun ana gövdesi. Yağ seviyesi, yağ kaçakları, kayışlar, bağlantılar ve motor çevresindeki hortumlar incelenir.",check:"Motor soğukken yağ çubuğuyla yağ seviyesini kontrol et. Görünür yağ/sıvı kaçağı, çatlak hortum veya anormal ses var mı?"},
-battery:{name:"12V akü",status:"Elektrik sistemi",desc:"Marş ve araç elektrik sisteminin beslemesini sağlar. Kutup başları ve sabitleme kontrol edilir.",check:"Kutup başlarında oksitlenme, gevşeklik, çatlak veya akü gövdesinde şişme var mı?"},
-air:{name:"Hava filtresi kutusu",status:"Emiş sistemi",desc:"Motora giren havayı filtreler. Kutu kapağı, klipsler ve emiş hortumu kontrol edilir.",check:"Kutu kapağı tam kapanmış mı? Filtre kirli mi, emiş hortumunda yırtık veya gevşeklik var mı?"},
-fuse:{name:"Motor bölmesi sigorta kutusu",status:"Elektrik dağıtımı",desc:"Motor bölmesindeki bazı elektrik devrelerini koruyan sigorta ve röleleri barındırır.",check:"Kapak ve contası sağlam mı? Sigorta kontrolünü araç kullanım kılavuzundaki amper değerlerine göre yap."},
-radiator:{name:"Radyatör",status:"Soğutma sistemi",desc:"Motor soğutma sıvısının ısısını düşürür. Peteklerde tıkanma, darbe ve sızıntı aranır.",check:"Motor tamamen soğukken çevresinde renkli kurumuş iz veya sıvı kaçağı var mı? Sıcakken kapağı açma."},
-fan:{name:"Soğutma fanı",status:"Soğutma sistemi",desc:"Radyatörden hava geçirerek soğutmaya yardımcı olur. Fan ve muhafazası kontrol edilir.",check:"Fan kanatlarında kırık veya sürtme izi var mı? Fan beklenmedik anda çalışabileceğinden elini yaklaştırma."},
-coolant:{name:"Soğutma suyu genleşme kabı",status:"Soğutma sistemi",desc:"Soğutma sıvısının seviyesini ve genleşmesini yönetir.",check:"Motor tamamen soğukken seviye MIN-MAX aralığında mı? Kapta çatlak veya çevresinde kaçak izi var mı?"},
-brakefluid:{name:"Fren hidroliği deposu",status:"Fren sistemi",desc:"Fren hidrolik sistemine sıvı sağlar. Seviye düşüklüğü kaçak veya balata aşınması belirtisi olabilir.",check:"Seviye MIN-MAX aralığında mı? Seviye düşükse yalnızca ekleme yapıp geçme; fren sistemi kontrol edilmeli."},
-washer:{name:"Cam suyu deposu",status:"Görüş ve yıkama",desc:"Ön cam yıkama sistemine sıvı sağlar.",check:"Depoda yeterli cam yıkama sıvısı var mı? Hortumlarda kaçak veya püskürtme memelerinde tıkanma var mı?"}
+engine:{name:"1.4 FIRE motor",status:"Motor sistemi",desc:"Motor; silindir kapağı, blok, emme ve ateşleme bileşenleriyle birlikte çalışır. Bu ekranda ana motor grubu seçilidir.",check:"Motor soğukken yağ seviyesini kontrol et. Motor çevresinde yağ veya soğutma sıvısı izi, çatlak hortum ya da gevşek soket var mı?",safety:"Motor çalışırken hareketli kayış ve fanlardan uzak dur."},
+battery:{name:"12V akü",status:"Elektrik sistemi",desc:"Akü marş motoruna ve araç elektrik sistemine enerji sağlar. Kutup başları ve sabitleme kontrol edilir.",check:"Kutup başlarında oksitlenme, gevşeklik, çatlak veya akü gövdesinde şişme var mı?",safety:"Akü kutuplarını metal aletle kısa devre yaptırma. Sökme işlemi doğru sırayla ve uygun ekipmanla yapılmalıdır."},
+air:{name:"Hava filtresi kutusu",status:"Emiş sistemi",desc:"Motora alınan havayı filtreler. Kutu kapağı, filtre elemanı ve emiş hortumu kontrol edilir.",check:"Kutu kapağı tam kapanmış mı? Filtre çok kirli mi, emiş hortumunda yırtık veya gevşeklik var mı?",safety:"Açık emiş hattına kir veya yabancı cisim kaçırma."},
+fuse:{name:"Motor bölmesi sigorta kutusu",status:"Elektrik dağıtımı",desc:"Elektrik devrelerini aşırı akıma karşı koruyan sigorta ve röleleri barındırır.",check:"Kutu kapağı sağlam mı? Sigorta amper değerlerini yalnızca araç kullanım kılavuzundaki şemaya göre kontrol et.",safety:"Daha yüksek amperli sigorta takma; elektrik arızasını büyütebilir."},
+radiator:{name:"Radyatör",status:"Soğutma sistemi",desc:"Soğutma sıvısının ısısını düşürür. Petek, bağlantı ve hortum çevresinde hasar veya sızıntı aranır.",check:"Motor tamamen soğukken radyatör çevresinde ıslaklık, renkli kurumuş iz veya hasarlı petek var mı?",safety:"Sıcak motorda radyatör veya genleşme kabı kapağını açma."},
+fan:{name:"Soğutma fanı",status:"Soğutma sistemi",desc:"Radyatörden hava geçirerek motor sıcaklığının kontrolüne yardımcı olur.",check:"Fan kanatlarında kırık, muhafazada çatlak veya sürtme izi var mı?",safety:"Fan elektriksel olarak beklenmedik anda çalışabilir; elini yaklaştırma."},
+coolant:{name:"Soğutma suyu genleşme kabı",status:"Soğutma sistemi",desc:"Soğutma sıvısının seviyesini ve genleşmesini yönetir.",check:"Motor tamamen soğukken seviye MIN-MAX aralığında mı? Kapta çatlak veya çevresinde kaçak izi var mı?",safety:"Sıcak sistem basınçlıdır. Kapağı sıcak motorda açma."},
+brakefluid:{name:"Fren hidroliği deposu",status:"Fren sistemi",desc:"Fren hidrolik sistemine sıvı sağlar. Seviye düşüklüğü kaçak veya balata aşınmasıyla ilişkili olabilir.",check:"Seviye MIN-MAX aralığında mı? Düşükse yalnızca sıvı ekleyip geçme; fren sistemi kontrol edilmelidir.",safety:"Fren hidroliği boyaya zarar verebilir. Fren arızası şüphesinde aracı kullanma."},
+washer:{name:"Cam suyu deposu",status:"Görüş ve yıkama",desc:"Ön cam yıkama sistemine sıvı sağlar.",check:"Depoda yeterli cam yıkama sıvısı var mı? Hortumlarda kaçak veya püskürtme memelerinde tıkanma var mı?",safety:"Soğuk havada mevsime uygun cam suyu kullan."}
 };
 let done=new Set(),xp=0;
 const detail=document.getElementById("detail");
 function choose(id){
- const d=data[id];if(!d)return;
- document.querySelectorAll("[data-part]").forEach(el=>{el.classList.toggle("active",el.classList.contains("part-btn")&&el.dataset.part===id);el.classList.toggle("selected",el.classList.contains("part")&&el.dataset.part===id)});
- detail.innerHTML='<div class="status">'+d.status+'</div><h3>'+d.name+'</h3><p>'+d.desc+'</p><p><b>Kontrol noktası:</b> '+d.check+'</p><div class="actions"><button class="action" id="inspect">Kontrol ettim (+10 XP)</button></div>';
- document.getElementById("inspect").onclick=()=>inspect(id);
+const d=data[id];if(!d)return;
+document.querySelectorAll(".part").forEach(el=>el.classList.toggle("selected",el.dataset.part===id));
+document.querySelectorAll(".part-btn").forEach(el=>el.classList.toggle("active",el.dataset.part===id));
+detail.innerHTML='<div class="status">'+d.status+'</div><h3>'+d.name+'</h3><p>'+d.desc+'</p><p><b>Kontrol noktası:</b> '+d.check+'</p><p><b>Güvenlik:</b> '+d.safety+'</p><div class="actions"><button class="action" id="inspect">Kontrol ettim · +10 XP</button></div>';
+document.getElementById("inspect").onclick=()=>inspect(id);
 }
 function inspect(id){
- const task=document.querySelector('[data-task="'+id+'"]');
- if(task&&!done.has(id)){done.add(id);xp+=10;task.classList.add("done");task.querySelector(".check").textContent="✓";document.getElementById("xp").textContent=xp;document.getElementById("level").textContent=1+Math.floor(xp/50);document.getElementById("progress").textContent="Tamamlanan görev: "+done.size+" / 3";document.getElementById("inspect").textContent="Görev tamamlandı";}
- else{document.getElementById("inspect").textContent="Kontrol tamamlandı";}
+const task=document.querySelector('[data-task="'+id+'"]');
+if(task&&!done.has(id)){done.add(id);xp+=10;task.classList.add("done");task.querySelector(".check").textContent="✓";document.getElementById("xp").textContent=xp;document.getElementById("level").textContent=1+Math.floor(xp/50);document.getElementById("progress").textContent="Tamamlanan görev: "+done.size+" / 3";document.getElementById("inspect").textContent="Görev tamamlandı ✓";}
+else{document.getElementById("inspect").textContent="Kontrol tamamlandı ✓";}
 }
 document.querySelectorAll("[data-part]").forEach(el=>{el.addEventListener("click",()=>choose(el.dataset.part));el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();choose(el.dataset.part)}})});
-document.getElementById("reset").onclick=()=>{done.clear();xp=0;document.querySelectorAll(".task").forEach(t=>{t.classList.remove("done");t.querySelector(".check").textContent=""});document.getElementById("xp").textContent="0";document.getElementById("level").textContent="1";document.getElementById("progress").textContent="Tamamlanan görev: 0 / 3";detail.innerHTML='<div class="status">Parça seçilmedi</div><h3>Garaja hoş geldin usta!</h3><p>Motor bölmesindeki bir parçaya veya aşağıdaki listeden bir bölüme dokun.</p>';document.querySelectorAll(".part-btn,.part").forEach(el=>el.classList.remove("active","selected"));};
+document.getElementById("reset").onclick=()=>{done.clear();xp=0;document.querySelectorAll(".task").forEach(t=>{t.classList.remove("done");t.querySelector(".check").textContent=""});document.getElementById("xp").textContent="0";document.getElementById("level").textContent="1";document.getElementById("progress").textContent="Tamamlanan görev: 0 / 3";detail.innerHTML='<div class="status">Garaj hazır</div><h3>Hoş geldin usta!</h3><p>Aracın üzerindeki renkli parçalara veya parça listesine dokun.</p>';document.querySelectorAll(".part-btn,.part").forEach(el=>el.classList.remove("active","selected"));};
 </script>
 </body>
 </html>
