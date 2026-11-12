@@ -5,7 +5,7 @@
 </style>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script></head>
 <body>
-<header><div><div class="logo">USTA <span>GARAJ</span> · 3D</div><div class="sub">Fiat Egea Sedan 1.4 · Etkileşimli prototip</div></div><div class="sub">SÜRÜM 1.6</div></header>
+<header><div><div class="logo">USTA <span>GARAJ</span> · 3D</div><div class="sub">Fiat Egea Sedan 1.4 · Etkileşimli prototip</div></div><div class="sub">SÜRÜM 1.7</div></header>
 <div id="view"></div>
 <div class="panel"><div class="toolbar"><button class="btn" id="hood">Kaputu aç</button><button class="btn alt" id="top">Üstten bak</button><button class="btn alt" id="reset">Görünümü sıfırla</button><button class="btn" id="remove" disabled>SÖK</button><button class="btn alt" id="install" disabled>TAK</button></div><div class="hint">Aracı parmağınla sürükleyerek döndür, iki parmakla yakınlaştır. Parçaya dokununca bilgi açılır.</div><div class="info" id="info"><div class="title">Garaja hoş geldin usta!</div>Sökülen parçalar sağdaki rafa taşınır. Raftaki parçaya dokunup takabilirsin. Model eğitim amaçlı temsildir.</div></div>
 <script type="module">
@@ -206,14 +206,55 @@ for(const [name,x,y,z] of [
  ['Radyatör bağlantı civatası 1',-.95,1.12,-3.0],['Radyatör bağlantı civatası 2',.95,1.12,-3.0]
 ]) bolt(name,x,y,z);
 
-// hood pivot group; closed initially, rotate open to reveal bay
-const hood=new THREE.Group();hood.position.set(0,.88,-3.05);car.add(hood);
-const hoodMesh=new THREE.Mesh(new THREE.BoxGeometry(3.12,.13,2.15),bodyMat);hoodMesh.position.set(0,0,1.05);hoodMesh.castShadow=true;hoodMesh.userData.part='Kaput';hood.add(hoodMesh);
+// Kaput: eğimli menteşe hattı, bombeli dış sac ve iki pres çizgisi
+const hood=new THREE.Group();hood.position.set(0,1.94,-.91);car.add(hood);
+const hoodGeo=new THREE.BufferGeometry(), hoodVerts=[], hoodIndices=[];
+const hoodRows=18, hoodCols=22;
+for(let iz=0;iz<=hoodRows;iz++){
+  const v=iz/hoodRows, z=-2.18+v*2.18;
+  for(let ix=0;ix<=hoodCols;ix++){
+    const u=ix/hoodCols, x=-1.48+u*2.96;
+    const crown=.075*(1-Math.pow(x/1.48,2))+.025*Math.sin(v*Math.PI);
+    hoodVerts.push(x,crown,z);
+  }
+}
+for(let iz=0;iz<hoodRows;iz++)for(let ix=0;ix<hoodCols;ix++){
+  const a=iz*(hoodCols+1)+ix,b=a+1,d=(iz+1)*(hoodCols+1)+ix,e=d+1;
+  hoodIndices.push(a,d,b,b,d,e);
+}
+hoodGeo.setAttribute('position',new THREE.Float32BufferAttribute(hoodVerts,3));
+hoodGeo.setIndex(hoodIndices);hoodGeo.computeVertexNormals();
+const hoodMat=bodyMat.clone();hoodMat.side=THREE.DoubleSide;
+const hoodMesh=new THREE.Mesh(hoodGeo,hoodMat);hoodMesh.castShadow=true;hoodMesh.receiveShadow=true;hoodMesh.userData.part='Kaput';hood.add(hoodMesh);
+for(const side of [-1,1]){
+  const ribCurve=new THREE.CatmullRomCurve3([
+    new THREE.Vector3(side*.82,.075,-2.02),
+    new THREE.Vector3(side*.9,.105,-1.5),
+    new THREE.Vector3(side*.96,.105,-.85),
+    new THREE.Vector3(side*.98,.075,-.18)
+  ]);
+  const rib=new THREE.Mesh(new THREE.TubeGeometry(ribCurve,24,.018,8,false),mat(0xb9c4ca,.35,.3));
+  rib.userData.part=side<0?'Kaput sol pres çizgisi':'Kaput sağ pres çizgisi';hood.add(rib);
+}
 box(car,'Ön tampon',0,.4,-3.48,3.3,.35,.35,0x424e55,.35);
+box(car,'Ön panjur çerçevesi',0,.76,-3.51,1.72,.34,.08,0x20292f,.35);
+for(let i=0;i<4;i++)box(car,'Ön panjur yatay çıtası '+(i+1),0,.64+i*.075,-3.56,1.52,.025,.035,0x87949a,.65);
+const frontBadge=new THREE.Mesh(new THREE.CylinderGeometry(.13,.13,.045,32),mat(0xc6d0d5,.85,.2));
+frontBadge.rotation.x=Math.PI/2;frontBadge.position.set(0,.78,-3.59);frontBadge.userData.part='Ön amblem';car.add(frontBadge);
+box(car,'Ön alt hava girişi',0,.43,-3.67,1.75,.12,.045,0x171e23,.25);
 for(const x of [-1.12,1.12]){
   const lamp=box(car,x<0?'Sol far gövdesi':'Sağ far gövdesi',x,.78,-3.34,.72,.25,.16,0x9baab0,.45);
   const lens=box(car,x<0?'Sol far camı':'Sağ far camı',x,.8,-3.43,.62,.16,.035,0xc9dce0,.18);
+  box(car,x<0?'Sol sis farı':'Sağ sis farı',x,.43,-3.68,.28,.12,.045,0xd7e4e8,.3);
 }
+// Arka bagaj kapağı, stoplar ve tampon
+box(car,'Bagaj kapağı',0,.91,3.12,2.82,.12,.52,0xbac5cb,.55);
+for(const x of [-1,1]){
+  box(car,x<0?'Sol arka stop gövdesi':'Sağ arka stop gövdesi',x,.83,3.38,.72,.3,.12,0x8f2528,.25);
+  box(car,x<0?'Sol stop camı':'Sağ stop camı',x,.84,3.45,.62,.2,.045,0xc64b43,.18);
+}
+box(car,'Arka tampon',0,.43,3.48,3.3,.34,.32,0x424e55,.35);
+box(car,'Arka plaka yuvası',0,.62,3.67,.72,.22,.035,0x1e292f,.2);
 
 const raycaster=new THREE.Raycaster(),pointer=new THREE.Vector2();let down=null,selectedMesh=null,removedMesh=null;
 const originalParents=new Map(),originalPositions=new Map();
@@ -248,13 +289,13 @@ const descriptions={
 'Buji bobini 3':'Silindir 3 ateşleme bobini konumunun eğitim amaçlı temsili.',
 'Buji bobini 4':'Silindir 4 ateşleme bobini konumunun eğitim amaçlı temsili.',
 
-'Kaput':'Kaput menteşe ekseni ve açılma hareketini gösteren basitleştirilmiş model.',
+'Kaput':'Bombeli dış sacı ve pres çizgileri olan açılır kaput; menteşe hattı ön cam tarafındadır.',
 'Gövde':'Sedan gövde ana formu. Birebir sac kalıbı veya ölçülü CAD değildir.'
 };
 function show(n){info.innerHTML='<div class="title">'+n+'</div>'+(descriptions[n]||'Seçilen gövde parçası.')+'<br><span style="color:#ffcb61">Bilgi: Eğitim amaçlı temsili 3D model.</span>'}
 document.getElementById('remove').onclick=()=>{if(!selectedMesh||!selectedMesh.visible)return;removedMesh=selectedMesh;moveToShelf(selectedMesh);document.getElementById('remove').disabled=true;document.getElementById('install').disabled=true;info.innerHTML='<div class="title">Parça rafa yerleştirildi: '+(selectedMesh.userData.part||'Parça')+'</div>Parça sağdaki rafta duruyor. Takmak için raftaki parçaya dokun, ardından “TAK” düğmesine bas.'};
 document.getElementById('install').onclick=()=>{if(!selectedMesh||!shelfItems.has(selectedMesh)){info.innerHTML='<div class="title">Önce raftan parça seç</div>Rafa taşınmış parçaya dokun, sonra takma düğmesine bas.';return;}const installing=selectedMesh;restoreFromShelf(installing);info.innerHTML='<div class="title">Parça yerine takıldı: '+(installing.userData.part||'Parça')+'</div>Parça araç üzerindeki ilk konumuna geri yerleştirildi.';removedMesh=null;document.getElementById('remove').disabled=true;document.getElementById('install').disabled=true};
-let opened=false;document.getElementById('hood').onclick=()=>{opened=!opened;hood.rotation.x=opened?-1.35:0;document.getElementById('hood').textContent=opened?'Kaputu kapat':'Kaputu aç';};
+let opened=false;document.getElementById('hood').onclick=()=>{opened=!opened;hood.rotation.x=opened?1.18:0;document.getElementById('hood').textContent=opened?'Kaputu kapat':'Kaputu aç';};
 document.getElementById('top').onclick=()=>{camera.position.set(0,12,.1);controls.target.set(0,.7,0);controls.update()};
 document.getElementById('reset').onclick=()=>{camera.position.set(7,8,10);controls.target.set(0,.7,0);controls.update()};
 function resize(){const w=host.clientWidth,h=host.clientHeight;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h)}window.addEventListener('resize',resize);resize();
