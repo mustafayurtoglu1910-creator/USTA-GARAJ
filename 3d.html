@@ -5,7 +5,7 @@
 </style>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script></head>
 <body>
-<header><div><div class="logo">USTA <span>GARAJ</span> · 3D</div><div class="sub">Fiat Egea Sedan 1.4 · Etkileşimli prototip</div></div><div class="sub">SÜRÜM 1.8</div></header>
+<header><div><div class="logo">USTA <span>GARAJ</span> · 3D</div><div class="sub">Fiat Egea Sedan 1.4 · Etkileşimli prototip</div></div><div class="sub">SÜRÜM 1.9</div></header>
 <div id="view"></div>
 <div class="panel"><div class="toolbar"><button class="btn" id="hood">Kaputu aç</button><button class="btn alt" id="top">Üstten bak</button><button class="btn alt" id="reset">Görünümü sıfırla</button><button class="btn" id="remove" disabled>SÖK</button><button class="btn alt" id="install" disabled>TAK</button></div><div class="hint">Aracı parmağınla sürükleyerek döndür, iki parmakla yakınlaştır. Parçaya dokununca bilgi açılır.</div><div class="info" id="info"><div class="title">Garaja hoş geldin usta!</div>Sökülen parçalar sağdaki rafa taşınır. Raftaki parçaya dokunup takabilirsin. Model eğitim amaçlı temsildir.</div></div>
 <script type="module">
@@ -42,7 +42,15 @@ function profileMesh(parent,name,points,width,material,bevel=.06){
     else shape.lineTo(p[0],p[1]);
   }
   shape.closePath();
-  const geo=new THREE.ExtrudeGeometry(shape,{depth:width,bevelEnabled:true,bevelSegments:3,steps:1,bevelSize:bevel,bevelThickness:bevel*.7,curveSegments:12});
+  // Gerçek araç siluetine yaklaşmak için gövde yan sacında teker boşlukları
+  if(name==='Gövde'){
+    for(const centerZ of [-2.15,2.15]){
+      const wheelOpening=new THREE.Path();
+      wheelOpening.absarc(centerZ,.48,.665,0,Math.PI*2,true);
+      shape.holes.push(wheelOpening);
+    }
+  }
+  const geo=new THREE.ExtrudeGeometry(shape,{depth:width,bevelEnabled:true,bevelSegments:4,steps:1,bevelSize:bevel,bevelThickness:bevel*.7,curveSegments:20});
   geo.rotateY(Math.PI/2);
   const mesh=new THREE.Mesh(geo,material);
   mesh.position.x=-width/2;
@@ -86,6 +94,16 @@ for(const side of [-1,1]){
   // İnce kapı ayırma çizgileri
   const seam=box(car,side<0?'Sol kapı birleşim çizgisi':'Sağ kapı birleşim çizgisi',side*1.615,.66,.02,.018,.52,.025,0x34434b,.15);
   seam.userData.part=side<0?'Sol kapı birleşim çizgisi':'Sağ kapı birleşim çizgisi';
+}
+// Tekerlek yuvalarının iç karanlık davlumbaz yüzeyleri
+for(const side of [-1,1]){
+  for(const centerZ of [-2.15,2.15]){
+    const liner=new THREE.Mesh(new THREE.CylinderGeometry(.69,.69,.035,48,1,true),mat(0x20272c,.05,.9));
+    liner.rotation.z=Math.PI/2;
+    liner.position.set(side*1.43,.48,centerZ);
+    liner.userData.part=(centerZ<0?'Ön':'Arka')+(side<0?' sol':' sağ')+' davlumbaz içliği';
+    car.add(liner);
+  }
 }
 // Tekerlekler ve alaşım jant yüzleri
 for(const x of [-1.63,1.63])for(const z of [-2.15,2.15]){
