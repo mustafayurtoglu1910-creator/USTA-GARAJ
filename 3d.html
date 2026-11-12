@@ -5,7 +5,7 @@
 </style>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script></head>
 <body>
-<header><div><div class="logo">USTA <span>GARAJ</span> · 3D</div><div class="sub">Fiat Egea Sedan 1.4 · Etkileşimli prototip</div></div><div class="sub">SÜRÜM 2.0</div></header>
+<header><div><div class="logo">USTA <span>GARAJ</span> · 3D</div><div class="sub">Fiat Egea Sedan 1.4 · Etkileşimli prototip</div></div><div class="sub">SÜRÜM 2.1</div></header>
 <div id="view"></div>
 <div class="panel"><div class="toolbar"><button class="btn" id="hood">Kaputu aç</button><button class="btn alt" id="top">Üstten bak</button><button class="btn alt" id="reset">Görünümü sıfırla</button><button class="btn" id="remove" disabled>SÖK</button><button class="btn alt" id="install" disabled>TAK</button></div><div class="hint">Aracı parmağınla sürükleyerek döndür, iki parmakla yakınlaştır. Parçaya dokununca bilgi açılır.</div><div class="info" id="info"><div class="title">Garaja hoş geldin usta!</div>Sökülen parçalar sağdaki rafa taşınır. Raftaki parçaya dokunup takabilirsin. Model eğitim amaçlı temsildir.</div></div>
 <script type="module">
@@ -31,7 +31,7 @@ const shelfItems=new Map();let shelfCount=0;
 function mat(color,metal=0,rough=.45){return new THREE.MeshStandardMaterial({color,metalness:metal,roughness:rough})}
 function box(parent,name,x,y,z,sx,sy,sz,color,metal=0){const m=new THREE.Mesh(new THREE.BoxGeometry(sx,sy,sz),mat(color,metal));m.position.set(x,y,z);m.castShadow=true;m.receiveShadow=true;m.userData.part=name;parent.add(m);return m}
 function cyl(parent,name,x,y,z,r1,r2,h,color,rot=0){const m=new THREE.Mesh(new THREE.CylinderGeometry(r1,r2,h,24),mat(color,.25));m.position.set(x,y,z);m.rotation.z=rot;m.castShadow=true;m.userData.part=name;parent.add(m);return m}
-const bodyMat=mat(0xd9e0e4,.55,.27),glass=mat(0x203d4c,.45,.2),rubber=mat(0x101418),rim=mat(0x9ba8ae,.8,.22);
+const bodyMat=mat(0xf4f5f6,.42,.24),glass=mat(0x203d4c,.45,.2),rubber=mat(0x101418),rim=mat(0x9ba8ae,.8,.22);
 // Egea Sedan için daha akıcı dış gövde: yuvarlatılmış profil geometrileri
 function profileMesh(parent,name,points,width,material,bevel=.06){
   const shape=new THREE.Shape();
@@ -96,7 +96,7 @@ profileMesh(car,'Kabin',[
  [-.68,1.735],[-.98,1.70,-1.16,1.54],[-1.62,.94]
 ],2.42,bodyMat,.035);
 // Tavan üst yüzeyi ve camlar
-box(car,'Tavan',0,1.79,.08,2.58,.12,1.72,0xcbd4d9,.58);
+box(car,'Tavan',0,1.79,.08,2.58,.12,1.72,0xf5f6f7,.42);
 sidePane('Sol ön kapı camı',-1.39,[[-.98,1.7],[-.78,1.73,.62,1.73],[.78,1.7],[.62,1.12],[-.66,1.12]],glass);
 sidePane('Sağ ön kapı camı',1.39,[[-.98,1.7],[-.78,1.73,.62,1.73],[.78,1.7],[.62,1.12],[-.66,1.12]],glass);
 sidePane('Sol arka kapı camı',-1.39,[[.72,1.7],[.95,1.7,1.35,1.25],[1.25,1.12],[.72,1.12]],glass);
@@ -106,7 +106,7 @@ const windshield=box(car,'Ön cam',0,1.43,-1.16,2.42,.045,.82,0x244555,.42);wind
 const rearGlass=box(car,'Arka cam',0,1.43,1.42,2.38,.045,.72,0x244555,.42);rearGlass.rotation.x=.34;
 // Kapı sacları, kapı çizgileri, marşpiyeller ve aynalar
 for(const side of [-1,1]){
-  box(car,side<0?'Sol ön kapı dış sacı':'Sağ ön kapı dış sacı',side*1.57,.66,-.72,.055,.48,1.32,0xb9c5cb,.55);
+  box(car,side<0?'Sol ön kapı dış sacı':'Sağ ön kapı dış sacı',side*1.57,.66,-.72,.055,.48,1.32,0xf1f3f4,.42);
   box(car,side<0?'Sol arka kapı dış sacı':'Sağ arka kapı dış sacı',side*1.57,.66,.72,.055,.48,1.28,0xb9c5cb,.55);
   box(car,side<0?'Sol marşpiyel':'Sağ marşpiyel',side*1.54,.38,.05,.1,.16,2.65,0x7f8d94,.5);
   box(car,side<0?'Sol kapı kolu ön':'Sağ kapı kolu ön',side*1.61,.83,-.72,.035,.07,.28,0x8d999f,.72);
@@ -340,7 +340,7 @@ for(const x of [-1.12,1.12]){
   box(car,x<0?'Sol sis farı':'Sağ sis farı',x,.43,-3.68,.28,.12,.045,0xd7e4e8,.3);
 }
 // Arka bagaj kapağı, stoplar ve tampon
-box(car,'Bagaj kapağı',0,.91,3.12,2.82,.12,.52,0xbac5cb,.55);
+box(car,'Bagaj kapağı',0,.91,3.12,2.82,.12,.52,0xf1f3f4,.42);
 for(const x of [-1,1]){
   box(car,x<0?'Sol arka stop gövdesi':'Sağ arka stop gövdesi',x,.83,3.38,.72,.3,.12,0x8f2528,.25);
   box(car,x<0?'Sol stop camı':'Sağ stop camı',x,.84,3.45,.62,.2,.045,0xc64b43,.18);
