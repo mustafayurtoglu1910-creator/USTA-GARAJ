@@ -5,7 +5,7 @@
 </style>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script></head>
 <body>
-<header><div><div class="logo">USTA <span>GARAJ</span> · 3D</div><div class="sub">Fiat Egea Sedan 1.4 · Etkileşimli prototip</div></div><div class="sub">SÜRÜM 1.3</div></header>
+<header><div><div class="logo">USTA <span>GARAJ</span> · 3D</div><div class="sub">Fiat Egea Sedan 1.4 · Etkileşimli prototip</div></div><div class="sub">SÜRÜM 1.4</div></header>
 <div id="view"></div>
 <div class="panel"><div class="toolbar"><button class="btn" id="hood">Kaputu aç</button><button class="btn alt" id="top">Üstten bak</button><button class="btn alt" id="reset">Görünümü sıfırla</button><button class="btn" id="remove" disabled>SÖK</button><button class="btn alt" id="install" disabled>TAK</button></div><div class="hint">Aracı parmağınla sürükleyerek döndür, iki parmakla yakınlaştır. Parçaya dokununca bilgi açılır.</div><div class="info" id="info"><div class="title">Garaja hoş geldin usta!</div>Sökülen parçalar sağdaki rafa taşınır. Raftaki parçaya dokunup takabilirsin. Model eğitim amaçlı temsildir.</div></div>
 <script type="module">
@@ -58,6 +58,46 @@ cyl(car,'Cam suyu deposu',1.2,1.0,-2.72,.24,.27,.56,0x3487b8);
 cyl(car,'Soğutma fanı',0,1.02,-2.88,.53,.53,.13,0x657983);
 cyl(car,'Yağ dolum kapağı',-.38,1.69,-1.8,.17,.17,.12,0xe4ae37);
 cyl(car,'Yağ seviye çubuğu',-.75,1.22,-1.2,.07,.07,.55,0xe1a02e);
+function hose(name,points,radius,color){
+  const curve=new THREE.CatmullRomCurve3(points.map(p=>new THREE.Vector3(...p)));
+  const mesh=new THREE.Mesh(new THREE.TubeGeometry(curve,32,radius,12,false),mat(color,.08,.48));
+  mesh.userData.part=name;mesh.castShadow=true;mesh.receiveShadow=true;car.add(mesh);return mesh;
+}
+function bolt(name,x,y,z,size=.055){
+  const mesh=new THREE.Mesh(new THREE.CylinderGeometry(size,size,size*.34,6),mat(0x9da7ad,.85,.25));
+  mesh.position.set(x,y,z);mesh.userData.part=name;mesh.castShadow=true;car.add(mesh);return mesh;
+}
+// Motor üstü ayrıntılar: bağımsız seçilebilir kapak, bobin ve bağlantılar
+const coilRail=box(car,'Ateşleme bobini ve bobin rayı',-.05,1.72,-2.0,.88,.16,.32,0x171d21,.35);
+for(let i=0;i<4;i++){
+  const plug=box(car,'Buji bobini '+(i+1),-.38+i*.22,1.84,-2.0,.13,.12,.22,0x20282d,.25);
+  plug.userData.part='Buji bobini '+(i+1);
+}
+const intakeBase=box(car,'Emme manifoldu gövdesi',-.05,1.34,-1.35,.92,.22,.42,0x333c42,.35);
+for(let i=0;i<4;i++){
+  const x=-.38+i*.22;
+  hose('Emme manifoldu kanalı '+(i+1),[[x,1.34,-1.5],[x,1.22,-1.68],[x,1.18,-1.88]],.055,0x30383d);
+}
+const throttle= new THREE.Mesh(new THREE.CylinderGeometry(.19,.19,.16,24),mat(0x8d999f,.75,.25));
+throttle.rotation.x=Math.PI/2;throttle.position.set(-.05,1.28,-1.08);throttle.userData.part='Gaz kelebeği gövdesi';car.add(throttle);
+// Hava emiş borusu ve kelepçeleri
+hose('Hava emiş hortumu',[[-1.42,1.15,-1.35],[-1.12,1.18,-1.18],[-.72,1.23,-1.12],[-.25,1.25,-1.1]],.105,0x171c20);
+const intakeClamp1= new THREE.Mesh(new THREE.TorusGeometry(.112,.018,8,24),mat(0xaab2b7,.8,.25));
+intakeClamp1.position.set(-1.18,1.18,-1.18);intakeClamp1.rotation.y=Math.PI/2;intakeClamp1.userData.part='Hava hortumu kelepçesi 1';car.add(intakeClamp1);
+const intakeClamp2= new THREE.Mesh(new THREE.TorusGeometry(.112,.018,8,24),mat(0xaab2b7,.8,.25));
+intakeClamp2.position.set(-.3,1.25,-1.1);intakeClamp2.rotation.y=Math.PI/2;intakeClamp2.userData.part='Hava hortumu kelepçesi 2';car.add(intakeClamp2);
+// Soğutma devresi hortumları
+hose('Üst radyatör hortumu',[[.35,1.28,-2.15],[.62,1.34,-2.45],[.55,1.25,-2.78],[.25,1.18,-3.0]],.09,0x171b1e);
+hose('Alt radyatör hortumu',[[-.4,.92,-2.25],[-.62,.88,-2.55],[-.45,.9,-2.88],[-.2,.92,-3.0]],.085,0x171b1e);
+hose('Kalorifer su hortumu',[[.42,1.3,-1.95],[.72,1.4,-1.8],[.88,1.42,-1.42],[.7,1.4,-1.12]],.06,0x20272b);
+// Hortum kelepçeleri ve motor bağlantı civataları
+for(const [name,x,y,z] of [
+ ['Motor kapağı civatası 1',-.48,1.67,-2.42],['Motor kapağı civatası 2',.38,1.67,-2.42],
+ ['Motor kapağı civatası 3',-.48,1.67,-1.58],['Motor kapağı civatası 4',.38,1.67,-1.58],
+ ['Emme manifoldu civatası 1',-.42,1.48,-1.48],['Emme manifoldu civatası 2',.32,1.48,-1.48],
+ ['Radyatör bağlantı civatası 1',-.95,1.12,-3.0],['Radyatör bağlantı civatası 2',.95,1.12,-3.0]
+]) bolt(name,x,y,z);
+
 // hood pivot group; closed initially, rotate open to reveal bay
 const hood=new THREE.Group();hood.position.set(0,.88,-3.05);car.add(hood);
 const hoodMesh=new THREE.Mesh(new THREE.BoxGeometry(3.12,.13,2.15),bodyMat);hoodMesh.position.set(0,0,1.05);hoodMesh.castShadow=true;hoodMesh.userData.part='Kaput';hood.add(hoodMesh);
@@ -81,6 +121,20 @@ const descriptions={
 'Cam suyu deposu':'Ön cam yıkama sıvısı deposu. Bu modeldeki çizim konumu temsildir; araç varyantına göre doğrulanmalıdır.',
 'Yağ dolum kapağı':'Motor yağı ekleme noktası. Uygun yağ standardı kullanım kılavuzundan seçilmelidir.',
 'Yağ seviye çubuğu':'Motor yağı seviyesini ölçer. Araç düz zeminde ve motor durduktan sonra ölçüm yapılır.',
+'Emme manifoldu gövdesi':'Hava-yakıt karışımının silindirlere dağıtılmasına yardımcı olan emme manifoldu gövdesi. Temsili geometridir.',
+'Gaz kelebeği gövdesi':'Motorun emdiği hava miktarını gaz pedalı komutuna göre düzenler.',
+'Hava emiş hortumu':'Hava filtresi kutusundan gaz kelebeği yönüne temiz hava taşır. Çatlak ve gevşek kelepçeler kontrol edilir.',
+'Hava hortumu kelepçesi 1':'Hava emiş hortumunu bağlantı ağzına sabitleyen kelepçe.',
+'Hava hortumu kelepçesi 2':'Hava emiş hortumunun diğer bağlantı kelepçesi.',
+'Üst radyatör hortumu':'Motor ile radyatör arasındaki soğutma sıvısı hattının üst bölümünü temsil eder.',
+'Alt radyatör hortumu':'Soğutma sıvısının radyatör alt bağlantısı yönündeki hortumunu temsil eder.',
+'Kalorifer su hortumu':'Motor soğutma devresinden kabin ısıtıcısına giden hattın temsili modeli.',
+'Ateşleme bobini ve bobin rayı':'Bujilere yüksek gerilim sağlayan ateşleme bobini grubunu temsil eder.',
+'Buji bobini 1':'Silindir 1 ateşleme bobini konumunun eğitim amaçlı temsili.',
+'Buji bobini 2':'Silindir 2 ateşleme bobini konumunun eğitim amaçlı temsili.',
+'Buji bobini 3':'Silindir 3 ateşleme bobini konumunun eğitim amaçlı temsili.',
+'Buji bobini 4':'Silindir 4 ateşleme bobini konumunun eğitim amaçlı temsili.',
+
 'Kaput':'Kaput menteşe ekseni ve açılma hareketini gösteren basitleştirilmiş model.',
 'Gövde':'Sedan gövde ana formu. Birebir sac kalıbı veya ölçülü CAD değildir.'
 };
